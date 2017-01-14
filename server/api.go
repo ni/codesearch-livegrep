@@ -219,6 +219,10 @@ func (s *server) ServeAPISearch(ctx context.Context, w http.ResponseWriter, r *h
 		q.MaxMatches = s.config.DefaultMaxMatches
 	}
 
+	if backend.TagServer && q.Tags == "" {
+		q.Tags = "."
+	}
+
 	reply, err := s.doSearch(ctx, backend, &q)
 
 	if err != nil {

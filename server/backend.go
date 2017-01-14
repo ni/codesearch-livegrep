@@ -27,6 +27,7 @@ type I struct {
 type Backend struct {
 	Id         string
 	Addr       string
+	TagServer  bool
 	I          *I
 	Codesearch pb.CodeSearchClient
 }
@@ -38,6 +39,7 @@ func NewBackend(id string, addr string) (*Backend, error) {
 	}
 	bk := &Backend{
 		Id:         id,
+		TagServer:  id == "ctags",
 		Addr:       addr,
 		I:          &I{Name: id},
 		Codesearch: pb.NewCodeSearchClient(client),
