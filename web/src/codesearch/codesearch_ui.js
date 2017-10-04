@@ -788,8 +788,8 @@ var CodesearchUI = function() {
         CodesearchUI.inputs_case.filter('[value='+parms.fold_case[0]+']').attr('checked', true);
       }
 
-      if (parms.regex) {
-        CodesearchUI.input_regex.prop('checked', parms.regex[0] === "true");
+      if (!parms.regex || (parms.regex && parms.regex[0] === "true")) {
+        CodesearchUI.input_regex.prop('checked', true);
       }
 
       if (parms.context) {
@@ -827,7 +827,7 @@ var CodesearchUI = function() {
     init_controls_from_prefs: function() {
       var prefs = Cookies.getJSON('prefs');
       if (!prefs) {
-        prefs = {};
+        prefs = {'regex': true};
       }
       if (prefs['regex'] !== undefined) {
         CodesearchUI.input_regex.prop('checked', prefs['regex']);
