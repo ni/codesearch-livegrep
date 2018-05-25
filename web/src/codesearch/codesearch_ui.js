@@ -102,10 +102,18 @@ function externalUrl(tree, version, path, lno) {
   if (url.indexOf('/{path}') !== -1)
     path = path.replace(/^\/+/, '');
 
+  // TODO: A proper implementation of this would require a change in
+  // codesearch.cc try_match returning this information.
+  var split_index = path.lastIndexOf("/");
+  var folder = path.substring(0, split_index);
+  var file = path.substring(split_index + 1, path.length);
+
   url = url.replace('{lno}', lno);
   url = url.replace('{version}', shorten(version));
   url = url.replace('{name}', tree);
   url = url.replace('{path}', path);
+  url = url.replace('{folder}', folder);
+  url = url.replace('{file}', file);
   return url;
 }
 
